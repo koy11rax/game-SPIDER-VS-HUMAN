@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ночной жилец · Spider asset viewer</title><link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<style>body{color:#e4dbc8;background:#1c2426;margin:0;font:15px system-ui}canvas{width:100vw;height:100vh;display:block}aside{background:#172124ed;border:1px solid #536461;border-radius:14px;width:290px;padding:20px;position:fixed;top:20px;left:24px}h1{margin:0 0 8px;font-size:20px}p{color:#a9b6ae;font-size:13px;line-height:1.5}label{margin:14px 0;display:block}select,button{color:#eee5d4;background:#293b3e;border:1px solid #788e82;border-radius:6px;padding:8px}button{cursor:pointer}pre{white-space:pre-wrap;color:#dfc18c;font:12px monospace}a{color:#91c7bb}#error{color:#ff9b91}input{accent-color:#c6aa73}</style>  <script type="module" crossorigin src="./assets/spider-DyBqXZd-.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/modulepreload-polyfill-P2Xu9kJm.js">
+  <link rel="modulepreload" crossorigin href="./assets/three.core-D6MXrWnV.js">
+  <link rel="modulepreload" crossorigin href="./assets/world-g8MZ6cgf.js">
+  <link rel="modulepreload" crossorigin href="./assets/OrbitControls-gmlDHXFp.js">
+  <link rel="modulepreload" crossorigin href="./assets/spider-animation-DfgZSEm8.js">
+</head>
+<body><canvas id="viewer"></canvas><aside><h1>Ночной жилец</h1><p>Игровой паук · реальный GLB / Three.js<br>18 мм тело · игровой коэффициент 2,8</p>
+<label>Клип <select id="clip"></select></label><label>Поверхность <select id="surface"><option value="floor">Пол</option><option value="west-climb">Стена</option><option value="ceiling">Потолок</option></select></label>
+<label><input type="checkbox" id="procedural" checked> Процедурные опоры лап</label><label><input type="checkbox" id="cargo"> Кокон в socket</label>
+<button id="pause">Пауза</button> <button id="reset">Сбросить вид</button><p>ЛКМ — орбита · колесо — приближение.<br>Сними опоры лап, чтобы увидеть чистый запечённый клип. Фон и свет нейтральные.</p><pre id="stats">Загрузка…</pre><p id="error" hidden></p><a href="./">Открыть игру →</a></aside></body></html>

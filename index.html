@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#111c21" />
+  <meta name="description" content="Ночной жилец — трёхмерная стелс-игра. Спасите три кокона из огромной ночной кухни до рассвета." />
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <title>Ночной жилец — успеть до рассвета</title>
+  <script type="module" crossorigin src="./assets/main-iQXMESde.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/modulepreload-polyfill-P2Xu9kJm.js">
+  <link rel="modulepreload" crossorigin href="./assets/preload-helper-D477G0wF.js">
+  <link rel="stylesheet" crossorigin href="./assets/preload-helper-D7vqMoMw.css">
+</head>
+<body>
+  <canvas id="world" aria-label="Трёхмерная кухня. WASD — движение, Shift — бег, Ctrl — осторожно, E — кокон. ПКМ и ЛКМ — нить, Space — отсоединиться."></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+  <main id="interface">
+    <header class="topbar">
+      <a class="wordmark" href="./" aria-label="Ночной жилец, главный экран"><span class="silk-mark" aria-hidden="true">✳</span> НОЧНОЙ ЖИЛЕЦ</a>
+      <nav aria-label="Настройки игры">
+        <button id="sound" class="icon-button" aria-pressed="false" title="Включить или выключить звук">Звук: выкл.</button>
+        <button id="settings" class="icon-button" title="Качество, звук и комфорт камеры">Настройки</button>
+        <button id="help" class="icon-button" title="Управление и правила">?</button>
+        <button id="pause" class="icon-button" title="Пауза (Esc)" hidden>Ⅱ</button>
+      </nav>
+    </header>
+    <section id="menu" class="screen">
+      <div class="intro">
+        <p class="eyebrow"><span></span> МАЛЕНЬКАЯ ЖИЗНЬ. БОЛЬШОЙ МИР.</p>
+        <h1>Ночной<br><em>жилец</em><span class="title-dot">.</span></h1>
+        <p class="lead">Для него это просто кухня.<br>Для тебя — целый мир.</p>
+        <p class="premise">Три кокона: под столом, у мойки, за холодильником. Верни их на подстилку у вентиляции — и уходи. Двенадцать минут до рассвета. У каждой цели два пути.</p>
+        <button id="start" class="primary" disabled>Загрузка кухни… <span id="load-progress" role="status" aria-live="polite">0 / 21</span></button>
+        <p class="menu-note">3D СТЕЛС · ОДНА НОЧЬ · НИКАКИХ СКРИМЕРОВ</p>
+        <p id="load-error" role="alert" hidden></p>
+      </div>
+      <div class="scene-caption"><span class="caption-line"></span><p>ОБЫЧНАЯ КУХНЯ<br><strong>Необычный масштаб</strong></p></div>
+      <footer class="menu-footer"><span>01 — НОЧЬ НАЧИНАЕТСЯ</span><button id="rules" class="text-button">Как выжить <span>↗</span></button></footer>
+    </section>
+    <section id="hud" aria-label="Состояние игры" hidden>
+      <div class="mission"><p class="eyebrow">ДОМА ДОЛЖНЫ БЫТЬ ВСЕ</p><div class="cocoon-count"><span id="saved">0</span><span class="count-divider">/</span><span class="count-total">3</span><div><strong>кокона в укрытии</strong><small id="carrying">Лапы свободны</small></div></div><div id="egg-dots" aria-hidden="true"><i></i><i></i><i></i></div></div>
+      <div class="night-clock"><span>ДО РАССВЕТА</span><strong id="clock">12:00</strong><div class="clock-track"><i id="night-fill"></i></div></div>
+      <div class="awareness"><div><span id="human-state">Человек патрулирует</span><strong id="alert-value">0%</strong></div><div class="awareness-track"><i id="alert-fill"></i></div><small id="stealth">Открытое место</small></div>
+      <div class="map-panel collapsed"><p class="eyebrow">КУХНЯ · 4,20 × 3,60 М</p><canvas id="map" width="260" height="220" aria-label="Карта кухни: маршруты, коконы, подстилка и выход"></canvas><small id="surface-info">Керамический пол</small><button id="next-route" type="button" title="Следующий маршрут (Tab)"><span id="route-name">Стол · через тень</span> ↻</button><div><span class="map-egg">●</span> коконы <span class="map-home">▯</span> выход · ▪ подстилка</div></div>
+      <div class="status-bottom"><span id="webs">Паутина 3 / 3</span><span id="objective">Найди первый кокон</span><span id="mode">Тихий шаг</span></div>
+      <div id="prompt" class="interaction" hidden><kbd>E</kbd><span></span></div>
+      <p id="toast" class="toast" role="status"></p>
+      <p id="sound-cue" role="status" aria-live="polite" hidden></p>
+      <div id="web-aim" hidden><i id="reticle" aria-hidden="true"></i><p id="aim-label" role="status"></p></div>
+      <p id="hazard" role="alert" hidden></p>
+      <p id="attack-warning" role="alert" hidden></p>
+      <div class="key-hints"><span><kbd>WASD</kbd> идти</span><span><kbd>Shift</kbd> бег</span><span><kbd>Ctrl</kbd> тихо</span><span><kbd>E</kbd> кокон</span><span><kbd>ПКМ → ЛКМ</kbd> нить</span><span><kbd>Space</kbd> отпустить</span><span><kbd>Мышь</kbd> обзор</span><span><kbd>Esc</kbd> пауза</span></div>
+    </section>
+    <section id="dialog" class="modal-backdrop" hidden>
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+        <p class="eyebrow" id="dialog-kicker">ПЕРЕД ТЕМ КАК ВЫЙТИ</p>
+        <h2 id="dialog-title">Как пережить ночь</h2>
+        <div id="dialog-content"></div>
+        <div class="modal-actions"><button id="dialog-primary" class="primary">Понятно</button><button id="dialog-secondary" class="text-button" hidden>В главное меню</button></div>
+      </div>
+    </section>
+    <div id="touch" hidden><div class="dpad"><button data-key="KeyW" aria-label="Вперёд">↑</button><button data-key="KeyA" aria-label="Влево">←</button><button data-key="KeyS" aria-label="Назад">↓</button><button data-key="KeyD" aria-label="Вправо">→</button></div><div class="touch-actions"><button id="touch-sneak" aria-pressed="false">Тихо</button><button id="touch-web">Прицел / нить</button><button id="touch-action">Кокон</button><button id="touch-drop">Отпустить</button><button id="touch-map" aria-expanded="false" aria-controls="map">Карта</button></div></div>
+    <div id="trailer-caption" hidden></div>
+  </main>
+</body>
+</html>
